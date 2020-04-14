@@ -1,0 +1,60 @@
+{
+   "intents": [
+	  {
+         "patterns": [
+            "auf wiedersehen",
+			"tschüss"
+         ],
+         "tag": "bye",
+         "responses": [
+            "Auf Wiedersehen! Ich hoffe ich konnte Ihnen behilflich sein.",
+            "Ich hoffe Sie haben noch einen wundervollen Tag!"
+         ]
+      },
+	  {
+         "patterns": [
+            "station eins",
+			"erste station",
+			"nummer eins",
+			"station nummer eins",
+			"station 1",
+			"nummer 1",
+			"station nummer 1"
+         ],
+         "tag": "station1",
+         "responses": [
+            "Station Nummer eins kann etwas machen. Ich bin zwar nicht sicher was, aber es ist etwas!"
+         ]
+      },
+	  {
+         "patterns": [
+            "station zwei",
+			"zweite station",
+			"nummer zwei",
+			"station nummer zwei",
+			"station 2",
+			"nummer 2",
+			"station nummer 2"
+         ],
+         "tag": "station2",
+         "responses": [
+            "Station Nummer zwei kann auch etwas machen. Ich weiß zwar nicht was, aber es ist etwas, versprochen!"
+         ]
+      },
+	  {
+         "patterns": [
+            "station drei",
+			"dritte station",
+			"nummer drei",
+			"station nummer drei",
+			"station 3",
+			"nummer 3",
+			"station nummer 3"
+         ],
+         "tag": "station3",
+         "responses": [
+            "Station Nummer drei kann ebenfalls etwas machen. Ich weiß zwar immer noch nicht was, aber es ist etwas!"
+         ]
+      }
+   ]
+}
