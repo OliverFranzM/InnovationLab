@@ -63,7 +63,8 @@
             "patterns": [
                 "Ich will nach einem Film suchen",
                 "Such mir nach einem Film",
-                "Sag mir etwas über einen Film"
+                "Sag mir etwas über einen Film",
+                "Film"
             ],
             "tag": "imdb_search",
             "responses": [
@@ -76,13 +77,15 @@
             "patterns": [
                 "Welchen Film soll ich schauen",
                 "I würde gerne einen Film sehen",
-                "Gib mir Empfehlungen"
+                "Gib mir Empfehlungen",
+                "Genre"
             ],
             "tag": "imdb_genre",
             "responses": [
                 "Welches Genre interessiert dich?",
                 "Kannst du mir das gesuchte Genre verraten?",
                 "Auf welches Genre hast du Lust?"
+                
             ]
         }
     ]
