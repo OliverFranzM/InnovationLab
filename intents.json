@@ -61,24 +61,24 @@
         },
         {
             "patterns": [
-                "Ich will nach einem Film suchen",
-                "Such mir nach einem Film",
-                "Sag mir etwas über einen Film",
-                "Film"
+                "ich will nach einem film suchen",
+                "such mir nach einem film",
+                "sag mir etwas über einen film",
+                "film"
             ],
             "tag": "imdb_search",
             "responses": [
-                "Nach welchem Film soll ich suchen?",
+                "Nach welchem Film soll ich suchen",
                 "Wie lautet der Titel des Filmes?",
                 "Welchen Name hat der Film?"
             ]
         },
         {
             "patterns": [
-                "Welchen Film soll ich schauen",
-                "I würde gerne einen Film sehen",
-                "Gib mir Empfehlungen",
-                "Genre"
+                "welchen film soll ich schauen",
+                "i würde gerne einen film sehen",
+                "gib mir empfehlungen",
+                "genre"
             ],
             "tag": "imdb_genre",
             "responses": [
