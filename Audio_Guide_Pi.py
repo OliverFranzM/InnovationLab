@@ -21,7 +21,9 @@ running = True
 # True if debug messages should be printed
 debug_mode = True
 
+# True if speech output of intents should be given
 run_audio=True
+
 
 # Initializing recognizer instance and a microphone as a source
 rec = sr.Recognizer()
@@ -31,30 +33,27 @@ mic = sr.Microphone()
 ####Basic Functions#########
 
 def error_message():
-   
-    print("")
-    print("Antwort: Ich habe Sie nicht richtig verstanden. Beginnen wir noch mal von vorne.")
-    if(run_audio):
-        espeak.synth("Ich habe Sie nicht richtig verstanden. Beginnen wir noch mal von vorne.")
+    
+    response = "Ich habe Sie nicht richtig verstanden. Beginnen wir noch mal von vorne."
+    print(response)
+    espeak.synth(response)
 	
 
 def welcome():
-        
-    print("Antwort: Herzlich willkommen! Mein Name ist Alex und ich bin Ihr Audio-Guide. In kürze können Sie sich über die jeweiligen Stationen informieren.")
-    if(run_audio):
-        espeak.synth("Herzlich willkommen! Mein Name ist Alex und ich bin Ihr Audio-Guide. In kürze können Sie sich über die jeweiligen Stationen informieren.")
+    
+    response = "Herzlich willkommen! Mein Name ist Alex und ich bin Ihr Audio-Guide. In kürze können Sie sich über die jeweiligen Stationen informieren."
+    print(response)
+    espeak.synth(response)
     
 def ready():
     
-    print("")
-    print("Antwort: Wie kann ich Ihnen behilflich sein?")
-    if(run_audio):
-        espeak.synth("Wie kann ich Ihnen behilflich sein?")
-
+    response = "Wie kann ich Ihnen behilflich sein?"
+    print(response)
+    espeak.synth(response)
 
 
 def make_accustic_response(resp):
-    print(resp)
+    
     espeak.synth(resp)
 
 
@@ -64,6 +63,7 @@ def make_accustic_response(resp):
 # Function for getting informations about a specific movie. #
 #############################################################
 
+# gives info about a specific movie (genres, plot, actors, director, release date)
 def imdb_search(this_movie):
     print("\nSuche nach Film: {}".format(this_movie))
     
@@ -74,8 +74,9 @@ def imdb_search(this_movie):
     
     print("Ich habe folgenden Film gefunden: {}\n".format(movies[0]))
     
-    if(run_audio):
-        response = "Ich habe den Film " + str(movies[0]) + " gefunden."
+    response = "Ich habe den Film " + str(movies[0]) + " gefunden."
+    print(response)
+    if run_audio == True:
         make_accustic_response(response)
    
     
@@ -113,16 +114,19 @@ def imdb_search(this_movie):
     except KeyError:
         print("\nErscheinungstermin unbekannt.")
 
-###############################################################
+###################################################################
 # Function for looking for the top 10 movies in a specific genre. #
-###############################################################
+###################################################################
 
+# searches through the imdb top 250 list for a specific genre 
 def imdb_genre(this_genre):
 
     print("\nIch suche nach Filmen mit Genre '{}'. (Das kann etwas dauern)".format(this_genre))
     
-    if(run_audio):
-        response = "Jetzt such ich die Top3 Filme mit Genre " + str(this_genre)
+    
+    response = "Jetzt such ich 3 Filme mit Genre " + str(this_genre)
+    print(response)
+    if run_audio == True:
         make_accustic_response(response)
    
     
@@ -147,7 +151,7 @@ def imdb_genre(this_genre):
             if genre.lower() == this_genre:
                 count += 1
                 print("{0}. {1}".format(count, movie['title']))
-                if(run_audio):
+                if run_audio == True:
                     response = movie['title']
                     espeak.synth(response)
                 
@@ -162,9 +166,10 @@ def imdb_genre(this_genre):
 # After receiving a request the program looks through its intent file and matches the request with a response. #
 ################################################################################################################
 
+# compares the speech of the user with intents from json file
 def intents(req):
     if debug_mode == True:
-        print("DEBUG 6: Recognized:"+req)
+        print("DEBUG 6: Recognized: {}".format(req))
         print("DEBUG 7: In intents function")
    
     
@@ -196,23 +201,24 @@ def intents(req):
                     if debug_mode == True:
                         print("DEBUG 11: This is the response i should give the user")
                         print(response)
-                        #make_accustic_response(response)
                     
-                    
-                    
-                    
+                    if run_audio == True:
+                        make_accustic_response(response)
+                                    
+                
                     # If the user is looking for a movie/genre another input is needed
                     if i['tag'] == "imdb_search":
                         request = mic_recognition(rec, mic)
                         if request['error'] is None:
                             imdb_search(request['response_trans'].lower())
+                            
                     elif i['tag'] == "imdb_genre":
                         request = mic_recognition(rec, mic)
                         if request['error'] is None:
                             imdb_genre(request['response_trans'].lower())
+                            
                     # If the user wishes to exit the program
                     elif i['tag'] == "bye":
-                        
                         return True
                     
                     return False
@@ -221,15 +227,19 @@ def intents(req):
         
         print("Error: I understood '{}'".format(req))
         #tts = gTTS('Verzeihung, aber ich verstehe Ihre Anfrage nicht. Probieren wir es nochmals von Anfang an!', lang='de')
-        if(run_audio):
-            response="Verzeihung, aber ich verstehe Ihre Anfrage nicht. Probieren wir es nochmals von Anfang an!"
+        
+        response="Verzeihung, aber ich verstehe Ihre Anfrage nicht. Probieren wir es nochmals von Anfang an!"
+        if debug_mode == True:
+            print("DEBUG 12: This is the response i should give the user")
+            print("DEBUG - Error: {}".format(response))
+            
+        if run_audio == True:
             make_accustic_response(response)
         
         return False
 		
 		
 	
-		
 		
 		
 
@@ -276,7 +286,6 @@ def activate_speechrec():
         print("DEBUG 3: In activate_speechrec. Sending welcome message.")
     
     welcome()
-   
     
     while True:
         ready()
@@ -292,6 +301,7 @@ def activate_speechrec():
             if debug_mode == True:
                 print("DEBUG 5: Got a request. Going into intents function.")
             
+            # if speech was understood --> into intents function
             stop = intents(request["response_trans"].lower())
             if stop == True:
                 break
